@@ -16,7 +16,7 @@ The application is containerized using Docker and deployed on a Kubernetes clust
 ![Kubernetes](./k8s.png)
 
 ## 📈 Autoscaling
-![Autoscaling](./autoscaling.png)
+![Autoscaling](./autoscalling.png)
 
 Clone the repository:
 
