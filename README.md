@@ -15,6 +15,109 @@ git clone https://github.com/Irfan-devops1/django-todo-cicd.git
 cd django-todo-cicd
 ```
 
+## Jenkins Setup
+
+Jenkins is used in this project to automate the CI/CD pipeline.
+
+### 1. Install OpenJDK 21
+
+Update the package repository:
+
+```bash
+sudo apt update
+```
+
+Install OpenJDK 21 and required dependencies:
+
+```bash
+sudo apt install -y fontconfig openjdk-21-jre
+```
+
+Verify the Java installation:
+
+```bash
+java --version
+```
+
+### 2. Install Jenkins — Long Term Support (LTS)
+
+Add the Jenkins repository key:
+
+```bash
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+```
+
+Add the Jenkins LTS repository:
+
+```bash
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+```
+
+Update the package repository:
+
+```bash
+sudo apt update
+```
+
+Install Jenkins:
+
+```bash
+sudo apt install -y jenkins
+```
+
+### 3. Start and Enable Jenkins
+
+Start Jenkins:
+
+```bash
+sudo systemctl start jenkins
+```
+
+Enable Jenkins to start automatically after reboot:
+
+```bash
+sudo systemctl enable jenkins
+```
+
+Check Jenkins service status:
+
+```bash
+sudo systemctl status jenkins
+```
+
+### 4. Access Jenkins
+
+After installation, Jenkins can be accessed through:
+
+```text
+http://<SERVER-IP>:8080
+```
+
+Retrieve the initial administrator password:
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
+Copy the password and enter it on the Jenkins setup page.
+
+### Jenkins Pipeline
+
+The Jenkins pipeline is used to automate the application build and deployment process.
+
+Typical pipeline stages include:
+
+1. **Checkout** – Clone the source code from GitHub.
+2. **Build** – Build the application.
+3. **Docker Build** – Create the Docker image.
+4. **Docker Push** – Push the image to Docker Hub.
+5. **Deploy** – Deploy the application to Kubernetes.
+6. **Verify** – Verify that the application is running successfully.
+
+
 Install Django and the required dependencies.
 
 Create database migrations:
