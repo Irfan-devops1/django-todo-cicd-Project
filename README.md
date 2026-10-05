@@ -9,13 +9,14 @@ The application is containerized using Docker and deployed on a Kubernetes clust
 
 ![Todo App Screenshot](./todo-app.png)
 
-## CICD Automation
-![Todo App Screenshot](./cicd.png)
+## 🔄 CI/CD Automation
+![CI/CD Pipeline](./cicd.png)
 
-## Deployed on Kubernets and Autoscalling done
-![Todo App Screenshot](./k8s.png)
-![Todo App Screenshot](./Autoscalling.png)
+## ☸️ Kubernetes Deployment
+![Kubernetes](./k8s.png)
 
+## 📈 Autoscaling
+![Autoscaling](./autoscaling.png)
 
 Clone the repository:
 
