@@ -1,16 +1,21 @@
-# Django Todo CI/CD
-
-A simple Todo application built with Django and integrated with a complete DevOps CI/CD workflow.
+# Django Todo Application — CI/CD with Jenkins & Kubernetes
+A complete DevOps CI/CD project demonstrating the automated deployment of a containerized Django Todo application with MySQL on Kubernetes.
 
 ## Application
 
-The Todo application allows users to create and manage their tasks through a simple web interface.
+The application is containerized using Docker and deployed on a Kubernetes cluster. Jenkins automates the complete CI/CD process whenever new code is pushed to GitHub.
 
 ## Todo Application Screenshot
 
 ![Todo App Screenshot](./todo-app.png)
 
-## Setup
+## CICD Automation
+![Todo App Screenshot](./cicd.png)
+
+## Deployed on Kubernets and Autoscalling done
+![Todo App Screenshot](./k8s.png)
+![Todo App Screenshot](./Autoscalling.png)
+
 
 Clone the repository:
 
