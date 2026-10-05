@@ -1,0 +1,83 @@
+pipeline {
+
+    agent any
+
+    environment {
+        IMAGE_NAME = "irfanahmadbhat/django-todo"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                    docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                '''
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | docker login \
+                        -u "$DOCKER_USER" \
+                        --password-stdin
+
+                        docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy MySQL') {
+            steps {
+                sh '''
+                    kubectl apply -f k8s/MYSQL-DB/configMap.yml
+                    kubectl apply -f k8s/MYSQL-DB/secret.yml
+                    kubectl apply -f k8s/MYSQL-DB/deployment.yml
+                '''
+            }
+        }
+
+        stage('Deploy Django') {
+            steps {
+                sh '''
+                    kubectl apply -f k8s/deployment.yaml
+                    kubectl apply -f k8s/service.yaml
+                '''
+            }
+        }
+
+        stage('Update Docker Image') {
+            steps {
+                sh '''
+                    kubectl set image deployment/todo-deployment \
+                    todo-app=${IMAGE_NAME}:${BUILD_NUMBER}
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                    kubectl rollout status deployment/todo-deployment
+                    kubectl get pods
+                    kubectl get svc
+                '''
+            }
+        }
+    }
+}
