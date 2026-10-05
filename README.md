@@ -6,6 +6,10 @@ A simple Todo application built with Django and integrated with a complete DevOp
 
 The Todo application allows users to create and manage their tasks through a simple web interface.
 
+## Todo Application Screenshot
+
+![Todo App Screenshot](./todo-app.png)
+
 ## Setup
 
 Clone the repository:
